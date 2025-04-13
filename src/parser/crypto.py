@@ -7,3 +7,11 @@ async def get_course_crypto(asset_pay):
         async with session.get(url) as response:
             data = await response.json()
             return data[asset_pay]['rub']
+
+
+async def get_course_crypto_usd(asset_pay):
+    url = f'https://api.coingecko.com/api/v3/simple/price?ids={asset_pay}&vs_currencies=usd'
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            data = await response.json()
+            return data[asset_pay]['usd']

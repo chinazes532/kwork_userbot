@@ -1,6 +1,6 @@
 import logging
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from src.route import client, edit_message_in_channel
+from src.route import client, edit_message_in_channel, edit_message_in_channel_2
 
 
 logging.basicConfig(level=logging.INFO)
@@ -12,6 +12,7 @@ async def main():
     await client.start()
     logging.info("User bot started.")
     scheduler.add_job(edit_message_in_channel, 'interval', minutes=2)
+    scheduler.add_job(edit_message_in_channel_2, 'interval', minutes=2)
     scheduler.start()
     try:
         await client.run_until_disconnected()
