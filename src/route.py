@@ -9,6 +9,11 @@ from telethon.tl.types import MessageEntityCustomEmoji
 
 from src.parser import get_course_crypto, get_euro_rate, get_imoex_data, get_course_crypto_usd
 
+from src.database.requests.first_message.add import set_first_message
+from src.database.requests.first_message.select import get_first_message
+from src.database.requests.second_message.add import set_second_message
+from src.database.requests.second_message.select import get_second_message
+
 load_dotenv()
 
 api_id = os.getenv("API_ID")
@@ -81,6 +86,12 @@ async def test(event):
 @client.on(events.NewMessage(pattern="/send_1"))
 async def send_1(event):
     try:
+        first_message_db = await get_first_message(1)
+        print(first_message_db)
+        if first_message_db:
+            await event.reply("Сообщение уже есть в закрепе")
+            return
+
         btc_course = await get_course_crypto_usd("bitcoin")
         eth_course = await get_course_crypto_usd("ethereum")
         usd_course = await get_course_crypto("tether")
@@ -95,8 +106,8 @@ async def send_1(event):
                       f"[4️⃣](emoji/5382320541375947661) {btc_course}$ [5️⃣](emoji/5382255700254681367) {eth_course}$ "
                       f"[6️⃣](emoji/5382294333485510537) {ton_course}$")
 
-        global first_id
         first_id = first_message.id
+        await set_first_message(first_id)
         await event.reply("Сообщение было успешно отправлено.")
         logging.info("Сообщение успешно отправлено.")
     except Exception as e:
@@ -114,8 +125,10 @@ async def edit_message_in_channel():
         url = "https://iss.moex.com/iss/engines/stock/markets/index/boards/SNDX/securities/IMOEX.json"
         imoex = await get_imoex_data(url)
 
+        first_message = await get_first_message(1)
+
         await client.edit_message(int(channel_id),
-                                  first_id,
+                                  first_message.message_id,
                                   f"[️1️⃣](emoji/5382310654361233675) {usd_course}₽ [2️⃣](emoji/5382128036646770366) {euro_course}₽ "
                       f"[3️⃣](emoji/5381803053651357419) {imoex}\n\n"
                       f"[4️⃣](emoji/5382320541375947661) {btc_course}$ [5️⃣](emoji/5382255700254681367) {eth_course}$ "
@@ -128,6 +141,11 @@ async def edit_message_in_channel():
 @client.on(events.NewMessage(pattern="/send_2"))
 async def send_2(event):
     try:
+        second_message_db = await get_second_message(1)
+        if second_message_db:
+            await event.reply("Сообщение уже есть в закрепе")
+            return
+
         btc_course = await get_course_crypto_usd("bitcoin")
         eth_course = await get_course_crypto_usd("ethereum")
         usd_course = await get_course_crypto("tether")
@@ -142,8 +160,9 @@ async def send_2(event):
                       f"[4️⃣](emoji/5382320541375947661) {btc_course}$ [5️⃣](emoji/5382255700254681367) {eth_course}$ "
                       f"[6️⃣](emoji/5382294333485510537) {ton_course}$")
 
-        global second_id
         second_id = second_message.id
+
+        await set_second_message(second_id)
         await event.reply("Сообщение было успешно отправлено.")
         logging.info("Сообщение успешно отправлено 2.")
     except Exception as e:
@@ -160,9 +179,10 @@ async def edit_message_in_channel_2():
         euro_course = await get_euro_rate()
         url = "https://iss.moex.com/iss/engines/stock/markets/index/boards/SNDX/securities/IMOEX.json"
         imoex = await get_imoex_data(url)
+        second_message = await get_second_message(1)
 
         await client.edit_message(int(channel_id_2),
-                                  second_id,
+                                  second_message.message_id,
                                   f"[️1️⃣](emoji/5382310654361233675) {usd_course}₽ [2️⃣](emoji/5382128036646770366) {euro_course}₽ "
                       f"[3️⃣](emoji/5381803053651357419) {imoex}\n\n"
                       f"[4️⃣](emoji/5382320541375947661) {btc_course}$ [5️⃣](emoji/5382255700254681367) {eth_course}$ "
