@@ -7,7 +7,7 @@ from telethon.extensions import markdown
 from telethon.tl import types
 from telethon.tl.types import MessageEntityCustomEmoji
 
-from src.parser import get_course_crypto, get_euro_rate, get_imoex_data, get_course_crypto_usd
+from src.parser import get_course_crypto, get_eur_rub_price, get_imoex_data, get_course_crypto_usd
 
 from src.database.requests.first_message.add import set_first_message
 from src.database.requests.first_message.select import get_first_message
@@ -73,7 +73,7 @@ async def test(event):
     eth_course = await get_course_crypto_usd("ethereum")
     usd_course = await get_course_crypto("tether")
     ton_course = await get_course_crypto_usd("the-open-network")
-    euro_course = await get_euro_rate()
+    euro_course = await get_eur_rub_price()
     url = "https://iss.moex.com/iss/engines/stock/markets/index/boards/SNDX/securities/IMOEX.json"
     imoex = await get_imoex_data(url)
 
@@ -96,7 +96,7 @@ async def send_1(event):
         eth_course = await get_course_crypto_usd("ethereum")
         usd_course = await get_course_crypto("tether")
         ton_course = await get_course_crypto_usd("the-open-network")
-        euro_course = await get_euro_rate()
+        euro_course = await get_eur_rub_price()
         url = "https://iss.moex.com/iss/engines/stock/markets/index/boards/SNDX/securities/IMOEX.json"
         imoex = await get_imoex_data(url)
 
@@ -121,7 +121,7 @@ async def edit_message_in_channel():
         eth_course = await get_course_crypto_usd("ethereum")
         usd_course = await get_course_crypto("tether")
         ton_course = await get_course_crypto_usd("the-open-network")
-        euro_course = await get_euro_rate()
+        euro_course = await get_eur_rub_price()
         url = "https://iss.moex.com/iss/engines/stock/markets/index/boards/SNDX/securities/IMOEX.json"
         imoex = await get_imoex_data(url)
 
@@ -150,7 +150,7 @@ async def send_2(event):
         eth_course = await get_course_crypto_usd("ethereum")
         usd_course = await get_course_crypto("tether")
         ton_course = await get_course_crypto_usd("the-open-network")
-        euro_course = await get_euro_rate()
+        euro_course = await get_eur_rub_price()
         url = "https://iss.moex.com/iss/engines/stock/markets/index/boards/SNDX/securities/IMOEX.json"
         imoex = await get_imoex_data(url)
 
@@ -176,7 +176,7 @@ async def edit_message_in_channel_2():
         eth_course = await get_course_crypto_usd("ethereum")
         usd_course = await get_course_crypto("tether")
         ton_course = await get_course_crypto_usd("the-open-network")
-        euro_course = await get_euro_rate()
+        euro_course = await get_eur_rub_price()
         url = "https://iss.moex.com/iss/engines/stock/markets/index/boards/SNDX/securities/IMOEX.json"
         imoex = await get_imoex_data(url)
         second_message = await get_second_message(1)
