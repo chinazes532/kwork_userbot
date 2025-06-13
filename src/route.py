@@ -134,8 +134,9 @@ async def edit_message_in_channel():
 
         await client.edit_message(int(channel_id),
                                   first_message.message_id,
-                                  f"[️1️⃣](emoji/5382310654361233675) {usd_course}₽ [2️⃣](emoji/5382128036646770366) {euro_course}₽ "
-        f" [4️⃣](emoji/5382320541375947661) {btc_course}$ [5️⃣](emoji/5382255700254681367) {eth_course}$")
+                                  f"[️1️⃣](emoji/5382310654361233675) {usd_course}₽  [2️⃣](emoji/5382128036646770366) {euro_course}₽  "
+                                  f" [4️⃣](emoji/5382320541375947661) {btc_course}$  [5️⃣](emoji/5382255700254681367) {eth_course}$"
+                                  )
 
         logging.info("Сообщение успешно изменено.")
     except Exception as e:
@@ -187,8 +188,8 @@ async def edit_message_in_channel_2():
 
         await client.edit_message(int(channel_id_2),
                                   second_message.message_id,
-                                  f"[️1️⃣](emoji/5382310654361233675) {usd_course}₽ [2️⃣](emoji/5382128036646770366) {euro_course}₽ "
-        f" [4️⃣](emoji/5382320541375947661) {btc_course}$ [5️⃣](emoji/5382255700254681367) {eth_course}$")
+                                  f"[️1️⃣](emoji/5382310654361233675) {usd_course}₽  [2️⃣](emoji/5382128036646770366) {euro_course}₽  "
+        f" [4️⃣](emoji/5382320541375947661) {btc_course}$  [5️⃣](emoji/5382255700254681367) {eth_course}$")
 
         # await client.edit_message(int(channel_id_2),
         #                           second_message.message_id,
@@ -196,7 +197,7 @@ async def edit_message_in_channel_2():
         #                           f"[3️⃣](emoji/5381803053651357419) {imoex}\n\n"
         #                           f"[4️⃣](emoji/5382320541375947661) {btc_course}$ [5️⃣](emoji/5382255700254681367) {eth_course}$ "
         #                           f"[6️⃣](emoji/5382294333485510537) {ton_course}$")
-        
+
         logging.info("Сообщение успешно изменено.")
     except Exception as e:
         logging.error(f"Произошла ошибка при изменении сообщения: {str(e)}")
