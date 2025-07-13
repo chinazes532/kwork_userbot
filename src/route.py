@@ -1,5 +1,6 @@
 import os
 import logging
+import traceback
 
 from telethon import TelegramClient, events
 from dotenv import load_dotenv
@@ -140,7 +141,8 @@ async def edit_message_in_channel():
 
         logging.info("Сообщение успешно изменено.")
     except Exception as e:
-        logging.error(f"Произошла ошибка при изменении сообщения: {str(e)}")
+        logging.error("Произошла ошибка при изменении сообщения:")
+        logging.error(traceback.format_exc())
 
 
 @client.on(events.NewMessage(pattern="/send_2"))
@@ -200,4 +202,5 @@ async def edit_message_in_channel_2():
 
         logging.info("Сообщение успешно изменено.")
     except Exception as e:
-        logging.error(f"Произошла ошибка при изменении сообщения: {str(e)}")
+        logging.error("Произошла ошибка при изменении сообщения:")
+        logging.error(traceback.format_exc())
