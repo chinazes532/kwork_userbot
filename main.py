@@ -15,7 +15,7 @@ async def main():
     await create_db()
     logging.info("User bot started.")
     scheduler.add_job(edit_message_in_channel, 'interval', minutes=2)
-    scheduler.add_job(edit_message_in_channel_2, 'interval', minutes=2)
+    scheduler.add_job(edit_message_in_channel_2, 'interval', minutes=3)
     scheduler.start()
     try:
         await client.run_until_disconnected()
